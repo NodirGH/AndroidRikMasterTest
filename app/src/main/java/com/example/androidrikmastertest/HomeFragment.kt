@@ -21,10 +21,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         tabLayoutAdapter =
             TabLayoutAdapter(requireActivity().supportFragmentManager, requireActivity().lifecycle)
 
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Camera"))
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Door"))
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Camera"))
 
         binding.vpStatisticPage.adapter = tabLayoutAdapter
+
+        binding.vpStatisticPage.isUserInputEnabled = false
 
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
