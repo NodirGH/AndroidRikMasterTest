@@ -5,59 +5,43 @@ import android.graphics.Canvas
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.example.androidrikmastertest.CameraDto
+import com.example.androidrikmastertest.MainViewModel
+import com.example.androidrikmastertest.adapter.MainAdapter
 import com.example.androidrikmastertest.base.BaseFragment
 import com.example.androidrikmastertest.databinding.FragmentCameraBinding
-import com.example.androidrikmastertest.adapter.MainAdapter
+import com.example.androidrikmastertest.dto.CamerasDto
+import com.example.androidrikmastertest.utils.observe
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CameraFragment : BaseFragment<FragmentCameraBinding>(FragmentCameraBinding::inflate),
     MainAdapter.CameraActionListener {
 
     private val mainAdapter = MainAdapter()
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var recyclerView: RecyclerView
+    private val viewModel: MainViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.getCameraInfo()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         mainAdapter.setOnActionListener(this)
-        val cameraList = ArrayList<CameraDto>()
-        val cameraData = listOf(
-            CameraDto(1, "First", isGuarded = true, isFavorite = false),
-            CameraDto(2, "Second", isGuarded = false, isFavorite = false),
-            CameraDto(3, "Third", isGuarded = false, isFavorite = false),
-            CameraDto(4, "Fourth", isGuarded = true, isFavorite = true),
-            CameraDto(5, "Fifth", isGuarded = false, isFavorite = false)
-        )
-        cameraList.addAll(cameraData)
-        mainAdapter.reload(cameraData)
-
         swipeRefreshLayout = binding.swipeRefreshLayout
         recyclerView = binding.rvCamera
-
-//        swipeRefreshLayout.setOnClickListener {
-//            swipeRefreshLayout.isRefreshing = false
-//
-//            val list = mutableListOf<Int>()
-//            for (i in 0 until 50){
-//                list.add(i)
-//            }
-//
-//            adapter.reload(list)
-//
-//        }
         recyclerView.adapter = mainAdapter
 
-//        val list = mutableListOf<Int>()
-//        for (i in 0 until 50){
-//            list.add(i)
-//        }
-//
-//        adapter.reload(list)
         setItemTouchHelper()
+
+        observe(viewModel.cameras, ::onCameraInfoGotten)
     }
 
     private fun setItemTouchHelper(){
@@ -108,33 +92,33 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(FragmentCameraBinding
                 actionState: Int,
                 isCurrentlyActive: Boolean
             ) {
-               if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE){
-                   if (dX == 0f){
-                       currentScrollX = viewHolder.itemView.scrollX
-                       firstInActive = true
-                   }
+                if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE){
+                    if (dX == 0f){
+                        currentScrollX = viewHolder.itemView.scrollX
+                        firstInActive = true
+                    }
 
-                   if (isCurrentlyActive){
-                       var scrollOffSet = currentScrollX + (-dX).toInt()
-                       if (scrollOffSet > limitScrollX){
-                           scrollOffSet = limitScrollX
-                       } else if (scrollOffSet < 0){
-                           scrollOffSet = 0
-                       }
+                    if (isCurrentlyActive){
+                        var scrollOffSet = currentScrollX + (-dX).toInt()
+                        if (scrollOffSet > limitScrollX){
+                            scrollOffSet = limitScrollX
+                        } else if (scrollOffSet < 0){
+                            scrollOffSet = 0
+                        }
 
-                       viewHolder.itemView.scrollTo(scrollOffSet, 0)
-                   } else {
-                       if (firstInActive){
-                           firstInActive = false
-                           currentScrollXWhenInActive = viewHolder.itemView.scrollX
-                           initXWhenInActive = dX
-                       }
+                        viewHolder.itemView.scrollTo(scrollOffSet, 0)
+                    } else {
+                        if (firstInActive){
+                            firstInActive = false
+                            currentScrollXWhenInActive = viewHolder.itemView.scrollX
+                            initXWhenInActive = dX
+                        }
 
-                       if (viewHolder.itemView.scrollX < limitScrollX){
-                           viewHolder.itemView.scrollTo((currentScrollXWhenInActive * dX / initXWhenInActive).toInt(), 0)
-                       }
-                   }
-               }
+                        if (viewHolder.itemView.scrollX < limitScrollX){
+                            viewHolder.itemView.scrollTo((currentScrollXWhenInActive * dX / initXWhenInActive).toInt(), 0)
+                        }
+                    }
+                }
             }
 
             override fun clearView(
@@ -157,21 +141,27 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(FragmentCameraBinding
         return (dipValue * context.resources.displayMetrics.density).toInt()
     }
 
-    override fun addToFavorite(cameraDto: CameraDto, favorite: ImageView) {
-//        if (cameraDto.isFavorite) {
-//            favorite.visibility = View.GONE
-//        } else {
-//            favorite.visibility = View.VISIBLE
-//        }
-//        Toast.makeText(requireContext(), "${cameraDto.title} is favorite", Toast.LENGTH_SHORT).show()
+    override fun addToFavorite(camerasDto: CamerasDto, favorite: ImageView) {
+
     }
 
-    override fun addGuarded(cameraDto: CameraDto, guarded: ImageView) {
-//        if (cameraDto.isGuarded){
-//            guarded.visibility = View.GONE
-//        } else {
-//            guarded.visibility = View.VISIBLE
-//        }
-//        Toast.makeText(requireContext(), "${cameraDto.title} is guarded", Toast.LENGTH_SHORT).show()
+    override fun addGuarded(camerasDto: CamerasDto, guarded: ImageView) {
+
+    }
+
+    private fun onCameraInfoGotten(cameraInfos: List<CamerasDto>) {
+        if (cameraInfos.isNotEmpty()) {
+            binding.tvHall.visibility = View.VISIBLE
+            binding.rvCamera.visibility = View.VISIBLE
+            binding.placeHolder.root.visibility = View.GONE
+            binding.emptyPlaceHolder.root.visibility = View.GONE
+            mainAdapter.submitList(cameraInfos)
+        } else{
+            binding.emptyPlaceHolder.root.visibility = View.VISIBLE
+            binding.placeHolder.root.visibility = View.GONE
+            binding.tvHall.visibility = View.GONE
+            binding.rvCamera.visibility = View.GONE
+
+        }
     }
 }

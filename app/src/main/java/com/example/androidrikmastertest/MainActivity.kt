@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.RequiresApi
 import com.example.androidrikmastertest.ui.HomeFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

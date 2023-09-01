@@ -8,7 +8,9 @@ import com.example.androidrikmastertest.adapter.TabLayoutAdapter
 import com.example.androidrikmastertest.base.BaseFragment
 import com.example.androidrikmastertest.databinding.FragmentHomeBinding
 import com.google.android.material.tabs.TabLayout
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
     private lateinit var tabLayoutAdapter: TabLayoutAdapter
 

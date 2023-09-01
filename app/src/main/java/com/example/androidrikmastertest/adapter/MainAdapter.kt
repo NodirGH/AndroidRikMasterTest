@@ -7,7 +7,8 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidrikmastertest.CameraDto
 import com.example.androidrikmastertest.databinding.ItemRvCameraBinding
-import com.example.androidrikmastertest.visibleIf
+import com.example.androidrikmastertest.dto.CamerasDto
+import com.example.androidrikmastertest.utils.visibleIf
 
 class MainAdapter : RecyclerView.Adapter<MainAdapter.CameraViewHolder>() {
 
@@ -21,11 +22,16 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.CameraViewHolder>() {
     }
 
     interface CameraActionListener {
-        fun addToFavorite(cameraDto: CameraDto, favorite: ImageView)
-        fun addGuarded(cameraDto: CameraDto, guarded: ImageView)
+        fun addToFavorite(camerasDto: CamerasDto, favorite: ImageView)
+        fun addGuarded(camerasDto: CamerasDto, guarded: ImageView)
     }
 
-    private var list = mutableListOf<CameraDto>()
+    private var list : List<CamerasDto> = emptyList()
+
+    fun submitList(cameraList: List<CamerasDto>){
+        list = cameraList
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CameraViewHolder {
         return CameraViewHolder(
@@ -38,20 +44,9 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.CameraViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: CameraViewHolder, position: Int) {
-//        holder.index = list[position]
-//        holder.updateView()
-//        holder.onDeleteClick = {
-//            removeItem(it)
-//        }
         holder.bindView(
             list[holder.adapterPosition]
         )
-    }
-
-    fun reload(list: List<CameraDto>){
-        this.list.clear()
-        this.list.addAll(list)
-        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {
@@ -59,10 +54,12 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.CameraViewHolder>() {
     }
 
     inner class CameraViewHolder(private val binding: ItemRvCameraBinding): RecyclerView.ViewHolder(binding.root){
-            fun bindView(cameraDto: CameraDto){
-               binding.tvCameraName.text = cameraDto.title
-                binding.ivGuard?.visibleIf(cameraDto.isGuarded)
-                binding.ivFavorite?.visibleIf(cameraDto.isFavorite)
+            fun bindView(camerasDto: CamerasDto){
+
+               binding.tvCameraName.text = camerasDto.name
+//                binding.ivGuard?.visibleIf(camerasDto.isGuarded)
+                binding.ivFavorite?.visibleIf(camerasDto.favorites)
+                binding.ivRec?.visibleIf(camerasDto.rec)
 
                 binding.root.setOnClickListener {
                     if (binding.ivGuard?.visibility == View.VISIBLE){
@@ -70,7 +67,7 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.CameraViewHolder>() {
                     } else {
                         binding.ivGuard?.visibility = View.VISIBLE
                     }
-                    binding.ivGuard?.let { guard -> listener.addGuarded(cameraDto, guard) }
+                    binding.ivGuard?.let { guard -> listener.addGuarded(camerasDto, guard) }
                 }
 
                 binding.ivAddFavorite?.setOnClickListener {
@@ -79,13 +76,8 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.CameraViewHolder>() {
                     } else {
                         binding.ivFavorite?.visibility = View.VISIBLE
                     }
-                    binding.ivFavorite?.let { view -> listener.addToFavorite(cameraDto, view) }
+                    binding.ivFavorite?.let { view -> listener.addToFavorite(camerasDto, view) }
                 }
             }
-    }
-
-    private fun removeItem(viewHolder: RecyclerView.ViewHolder){
-        list.removeAt(viewHolder.adapterPosition)
-        notifyItemRemoved(viewHolder.adapterPosition)
     }
 }

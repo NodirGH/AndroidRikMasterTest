@@ -1,14 +1,14 @@
 package com.example.androidrikmastertest.base
 
 import androidx.lifecycle.ViewModel
-//import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewModelScope
 import com.example.androidrikmastertest.utils.LiveEvent
 import com.example.androidrikmastertest.utils.SingleEvent
 import com.example.androidrikmastertest.utils.SingleLiveData
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-//import timber.log.Timber
+import timber.log.Timber
 
 
 abstract class BaseViewModel : ViewModel() {
@@ -18,15 +18,15 @@ abstract class BaseViewModel : ViewModel() {
         errorProcess(exception)
     }
 
-//    val vmScope = viewModelScope + handler + Dispatchers.IO
+    val vmScope = viewModelScope + handler + Dispatchers.IO
 
     fun errorProcess(throwable: Throwable, f: ((t: Throwable) -> Unit)? = null) {
-//        viewModelScope.launch {
-//            loading.postValue(false)
-//            throwable.printStackTrace()
-//            Timber.d(throwable.message)
-//            errorOther.postValue(SingleEvent(throwable))
-//        }
+        viewModelScope.launch {
+            loading.postValue(false)
+            throwable.printStackTrace()
+            Timber.d(throwable.message)
+            errorOther.postValue(SingleEvent(throwable))
+        }
     }
 
     fun CoroutineScope.loadingLaunch(suspendCall: suspend () -> Unit): Job {
