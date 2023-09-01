@@ -4,6 +4,8 @@ import android.content.Context
 import android.graphics.Canvas
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -11,7 +13,8 @@ import com.example.androidrikmastertest.base.BaseFragment
 import com.example.androidrikmastertest.databinding.FragmentCameraBinding
 import com.example.androidrikmastertest.test2.Adapter
 
-class CameraFragment : BaseFragment<FragmentCameraBinding>(FragmentCameraBinding::inflate) {
+class CameraFragment : BaseFragment<FragmentCameraBinding>(FragmentCameraBinding::inflate),
+    Adapter.CameraActionListener {
 
     private val adapter = Adapter()
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
@@ -20,28 +23,40 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(FragmentCameraBinding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        adapter.setOnActionListener(this)
+        val cameraList = ArrayList<CameraDto>()
+        val cameraData = listOf(
+            CameraDto(1, "First", isGuarded = true, isFavorite = false),
+            CameraDto(2, "Second", isGuarded = false, isFavorite = false),
+            CameraDto(3, "Third", isGuarded = false, isFavorite = false),
+            CameraDto(4, "Fourth", isGuarded = true, isFavorite = true),
+            CameraDto(5, "Fifth", isGuarded = false, isFavorite = false)
+        )
+        cameraList.addAll(cameraData)
+        adapter.reload(cameraData)
+
         swipeRefreshLayout = binding.swipeRefreshLayout
-        recyclerView = binding.recyclerView
+        recyclerView = binding.rvCamera
 
-        swipeRefreshLayout.setOnClickListener {
-            swipeRefreshLayout.isRefreshing = false
-
-            val list = mutableListOf<Int>()
-            for (i in 0 until 50){
-                list.add(i)
-            }
-
-            adapter.reload(list)
-
-        }
+//        swipeRefreshLayout.setOnClickListener {
+//            swipeRefreshLayout.isRefreshing = false
+//
+//            val list = mutableListOf<Int>()
+//            for (i in 0 until 50){
+//                list.add(i)
+//            }
+//
+//            adapter.reload(list)
+//
+//        }
         recyclerView.adapter = adapter
 
-        val list = mutableListOf<Int>()
-        for (i in 0 until 50){
-            list.add(i)
-        }
-
-        adapter.reload(list)
+//        val list = mutableListOf<Int>()
+//        for (i in 0 until 50){
+//            list.add(i)
+//        }
+//
+//        adapter.reload(list)
         setItemTouchHelper()
     }
 
@@ -49,7 +64,7 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(FragmentCameraBinding
 
         ItemTouchHelper(object : ItemTouchHelper.Callback() {
 
-            private val limitScrollX = dipToPx(100f, requireContext())
+            private val limitScrollX = dipToPx(50f, requireContext())
             private var currentScrollX = 0
             private var currentScrollXWhenInActive = 0
             private var initXWhenInActive = 0f
@@ -130,7 +145,7 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(FragmentCameraBinding
                 if (viewHolder.itemView.scrollX > limitScrollX) {
                     viewHolder.itemView.scrollTo(limitScrollX, 0)
                 } else if (viewHolder.itemView.scrollX < 0) {
-                    viewHolder.itemView.scrollTo(0 , 0)
+                    viewHolder.itemView.scrollTo(0, 0)
                 }
             }
         }).apply {
@@ -140,5 +155,23 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(FragmentCameraBinding
 
     private fun dipToPx(dipValue: Float, context: Context): Int {
         return (dipValue * context.resources.displayMetrics.density).toInt()
+    }
+
+    override fun addToFavorite(cameraDto: CameraDto, favorite: ImageView) {
+//        if (cameraDto.isFavorite) {
+//            favorite.visibility = View.GONE
+//        } else {
+//            favorite.visibility = View.VISIBLE
+//        }
+//        Toast.makeText(requireContext(), "${cameraDto.title} is favorite", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun addGuarded(cameraDto: CameraDto, guarded: ImageView) {
+//        if (cameraDto.isGuarded){
+//            guarded.visibility = View.GONE
+//        } else {
+//            guarded.visibility = View.VISIBLE
+//        }
+//        Toast.makeText(requireContext(), "${cameraDto.title} is guarded", Toast.LENGTH_SHORT).show()
     }
 }

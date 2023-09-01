@@ -21,8 +21,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         tabLayoutAdapter =
             TabLayoutAdapter(requireActivity().supportFragmentManager, requireActivity().lifecycle)
 
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Door"))
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Camera"))
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.Camera))
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.Door))
 
         binding.vpStatisticPage.adapter = tabLayoutAdapter
 
