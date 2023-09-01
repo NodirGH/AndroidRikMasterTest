@@ -1,8 +1,10 @@
-package com.example.androidrikmastertest
+package com.example.androidrikmastertest.ui
 
 import android.os.Bundle
 import android.view.View
 import androidx.viewpager2.widget.ViewPager2
+import com.example.androidrikmastertest.R
+import com.example.androidrikmastertest.adapter.TabLayoutAdapter
 import com.example.androidrikmastertest.base.BaseFragment
 import com.example.androidrikmastertest.databinding.FragmentHomeBinding
 import com.google.android.material.tabs.TabLayout

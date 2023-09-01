@@ -1,29 +1,29 @@
-package com.example.androidrikmastertest
+package com.example.androidrikmastertest.ui
 
 import android.content.Context
 import android.graphics.Canvas
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.example.androidrikmastertest.CameraDto
 import com.example.androidrikmastertest.base.BaseFragment
 import com.example.androidrikmastertest.databinding.FragmentCameraBinding
-import com.example.androidrikmastertest.test2.Adapter
+import com.example.androidrikmastertest.adapter.MainAdapter
 
 class CameraFragment : BaseFragment<FragmentCameraBinding>(FragmentCameraBinding::inflate),
-    Adapter.CameraActionListener {
+    MainAdapter.CameraActionListener {
 
-    private val adapter = Adapter()
+    private val mainAdapter = MainAdapter()
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var recyclerView: RecyclerView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter.setOnActionListener(this)
+        mainAdapter.setOnActionListener(this)
         val cameraList = ArrayList<CameraDto>()
         val cameraData = listOf(
             CameraDto(1, "First", isGuarded = true, isFavorite = false),
@@ -33,7 +33,7 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(FragmentCameraBinding
             CameraDto(5, "Fifth", isGuarded = false, isFavorite = false)
         )
         cameraList.addAll(cameraData)
-        adapter.reload(cameraData)
+        mainAdapter.reload(cameraData)
 
         swipeRefreshLayout = binding.swipeRefreshLayout
         recyclerView = binding.rvCamera
@@ -49,7 +49,7 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(FragmentCameraBinding
 //            adapter.reload(list)
 //
 //        }
-        recyclerView.adapter = adapter
+        recyclerView.adapter = mainAdapter
 
 //        val list = mutableListOf<Int>()
 //        for (i in 0 until 50){

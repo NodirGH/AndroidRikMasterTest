@@ -1,6 +1,6 @@
 package com.example.androidrikmastertest
 
-data class CameraDto(
+data class CameraDto( //test version
     val image : Int,
     val title: String,
     val isGuarded: Boolean,

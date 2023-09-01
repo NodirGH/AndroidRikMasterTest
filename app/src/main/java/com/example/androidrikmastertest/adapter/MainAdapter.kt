@@ -1,17 +1,15 @@
-package com.example.androidrikmastertest.test2
+package com.example.androidrikmastertest.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidrikmastertest.CameraDto
-import com.example.androidrikmastertest.R
 import com.example.androidrikmastertest.databinding.ItemRvCameraBinding
 import com.example.androidrikmastertest.visibleIf
 
-class Adapter : RecyclerView.Adapter<Adapter.CameraViewHolder>() {
+class MainAdapter : RecyclerView.Adapter<MainAdapter.CameraViewHolder>() {
 
     var isCameraFragment = true
     var isDoorFragment = false
