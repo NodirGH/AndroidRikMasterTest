@@ -12,7 +12,6 @@ class MainViewModel @Inject constructor(private val mainUseCase: MainUseCase) : 
 
     var cameras = MutableLiveData<List<CamerasDto>>()
 
-
     fun getCameraInfo(){
         vmScope.loadingLaunch {
             val result = mainUseCase.getCameraInfo()

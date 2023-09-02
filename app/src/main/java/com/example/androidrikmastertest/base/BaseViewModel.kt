@@ -36,12 +36,4 @@ abstract class BaseViewModel : ViewModel() {
             loading.postValue(false)
         }
     }
-
-    fun <T> Flow<T>.handleErrors(): Flow<T> = flow {
-        try {
-            collect { value -> emit(value) }
-        } catch (e: Throwable) {
-            errorProcess(e)
-        }
-    }
 }

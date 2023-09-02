@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.androidrikmastertest.CameraDto
 import com.example.androidrikmastertest.databinding.ItemRvCameraBinding
 import com.example.androidrikmastertest.dto.CamerasDto
 import com.example.androidrikmastertest.utils.visibleIf
@@ -57,7 +56,6 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.CameraViewHolder>() {
             fun bindView(camerasDto: CamerasDto){
 
                binding.tvCameraName.text = camerasDto.name
-//                binding.ivGuard?.visibleIf(camerasDto.isGuarded)
                 binding.ivFavorite?.visibleIf(camerasDto.favorites)
                 binding.ivRec?.visibleIf(camerasDto.rec)
 

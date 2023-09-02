@@ -25,5 +25,4 @@ class SecurityService @Inject constructor(
             }
         }
     }
-
 }
