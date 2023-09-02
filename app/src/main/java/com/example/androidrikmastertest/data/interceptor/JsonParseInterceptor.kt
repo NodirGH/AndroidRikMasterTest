@@ -25,10 +25,6 @@ class JsonParseInterceptor(
 
         request.header("Content-Type", "application/json")
         request.header("X-App-Platform", "android")
-//        if (preference.deviceId.isNotEmpty())
-//            request.header("fingerprint", preference.deviceId)
-//        if (preference.accessToken.isNotEmpty())
-//            request.header("Authorization", "Bearer " + preference.accessToken)
 
         try {
             val response = chain.proceed(request.build())
