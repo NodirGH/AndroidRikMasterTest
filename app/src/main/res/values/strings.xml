@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">AndroidRikMasterTest</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Hall">Гостиная</string>
+    <string name="Camera">Камеры</string>
+    <string name="Door">Двери</string>
+    <string name="MyHome">Мой дом</string>
+    <string name="UnexpectedError">Unexpected error</string>
+    <string name="NoData">Информация \n не найдена</string>
 </resources>

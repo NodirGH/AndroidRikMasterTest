@@ -23,7 +23,6 @@ abstract class BaseFragment<VB : ViewBinding>(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//        updateStatusBarColor(R.color.BackgroundColor)
         if (isSavedState && _binding != null)
             return binding.root
         _binding = inflate(inflater, container, false)
@@ -39,26 +38,4 @@ abstract class BaseFragment<VB : ViewBinding>(
         super.onDestroy()
         _binding = null
     }
-
-//    open fun handleError(throwable: Throwable) {
-//        when (throwable) {
-//            is ServerErrorException -> {
-//                showAlertDialog(uz.padishah.data.R.string.UnexpectedError)
-//            }
-//            is UnknownHostException -> {
-//                showAlertDialog(R.string.ExceptionNoConnectivity)
-//            }
-//            is FakeTimeException,
-//            is BadRequestException -> {
-//                showAlertDialog(R.string.ExceptionBadRequestTitle, throwable.message.toString())
-//            }
-//            is UnauthorizedException -> {
-//
-//            }
-//            else -> {
-//                showAlertDialog(R.string.ExceptionBadRequestTitle, throwable.message.toString())
-//            }
-//        }
-//    }
-
 }

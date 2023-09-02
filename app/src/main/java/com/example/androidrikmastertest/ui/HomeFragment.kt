@@ -1,12 +1,16 @@
-package com.example.androidrikmastertest
+package com.example.androidrikmastertest.ui
 
 import android.os.Bundle
 import android.view.View
 import androidx.viewpager2.widget.ViewPager2
+import com.example.androidrikmastertest.R
+import com.example.androidrikmastertest.adapter.TabLayoutAdapter
 import com.example.androidrikmastertest.base.BaseFragment
 import com.example.androidrikmastertest.databinding.FragmentHomeBinding
 import com.google.android.material.tabs.TabLayout
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
     private lateinit var tabLayoutAdapter: TabLayoutAdapter
 
@@ -21,10 +25,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         tabLayoutAdapter =
             TabLayoutAdapter(requireActivity().supportFragmentManager, requireActivity().lifecycle)
 
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Camera"))
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Door"))
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.Camera))
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.Door))
 
         binding.vpStatisticPage.adapter = tabLayoutAdapter
+
+        binding.vpStatisticPage.isUserInputEnabled = false
 
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {

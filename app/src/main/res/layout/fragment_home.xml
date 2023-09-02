@@ -3,16 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_bg_color"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".HomeFragment">
+    tools:context=".ui.HomeFragment">
 
     <TextView
         android:id="@+id/tvHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Moy dom"
-        android:textSize="18sp"
-        android:textColor="@color/black"
+        android:text="@string/MyHome"
+        android:fontFamily="@font/circe_semi_bold"
+        android:textSize="20sp"
+        android:textColor="@color/MainTextColor333"
         android:textStyle="bold"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,11 +35,11 @@
         app:layout_constraintTop_toBottomOf="@+id/tvHeading"
         app:tabIndicator="@drawable/tab_background"
         app:tabIndicatorAnimationMode="elastic"
-        app:tabIndicatorColor="#E4772F"
+        app:tabIndicatorColor="#03A9F4"
         app:tabIndicatorGravity="bottom"
         app:tabIndicatorHeight="2dp"
         app:tabRippleColor="#EDCDB0"
-        app:tabSelectedTextColor="#E4772F"
+        app:tabSelectedTextColor="@color/MainTextColor333"
         app:tabTextColor="#80686868"
         app:tabTextAppearance="@style/MyCustomTextAppearance"/>
 
