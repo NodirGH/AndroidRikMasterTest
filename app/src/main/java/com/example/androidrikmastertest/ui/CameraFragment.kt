@@ -33,7 +33,6 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(FragmentCameraBinding
         super.onViewCreated(view, savedInstanceState)
 
         cameraAdapter.setOnActionListener(this)
-        swipeRefreshLayout = binding.swipeRefreshLayout
         recyclerView = binding.rvCamera
         recyclerView.adapter = cameraAdapter
 

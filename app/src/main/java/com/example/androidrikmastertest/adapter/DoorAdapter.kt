@@ -80,6 +80,16 @@ class DoorAdapter : RecyclerView.Adapter<DoorAdapter.DoorViewHolder>() {
                 binding.ivEdit.setOnClickListener {
                     listener.editName(doorsDto)
                 }
+
+                if (doorsDto.imageUrl.isEmpty()) {
+                    binding.cardView.visibility = View.GONE
+                    val param = binding.ivFavorite.layoutParams as ViewGroup.MarginLayoutParams
+                    param.setMargins(0, 30, 70, 0)
+                    binding.ivFavorite.layoutParams = param
+
+                } else {
+                    binding.cardView.visibility = View.VISIBLE
+                }
             }
     }
 }
