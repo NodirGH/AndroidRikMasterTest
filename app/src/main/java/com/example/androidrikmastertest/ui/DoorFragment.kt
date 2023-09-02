@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidrikmastertest.MainViewModel
-import com.example.androidrikmastertest.adapter.CameraAdapter
 import com.example.androidrikmastertest.adapter.DoorAdapter
 import com.example.androidrikmastertest.base.BaseFragment
 import com.example.androidrikmastertest.databinding.FragmentDoorBinding

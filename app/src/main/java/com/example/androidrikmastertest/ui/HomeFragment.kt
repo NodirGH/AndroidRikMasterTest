@@ -37,14 +37,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                 if (tab == null) return
 
                 binding.vpStatisticPage.currentItem = tab.position
-                if (tab.position == 0) {
-//                    isReadTime = true
-//                    isListenTime = false
-                } else {
-//                    isReadTime = false
-//                    isListenTime = true
-                }
-
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {

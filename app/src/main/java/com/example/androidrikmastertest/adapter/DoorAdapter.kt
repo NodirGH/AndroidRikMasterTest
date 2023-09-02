@@ -6,9 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidrikmastertest.R
-import com.example.androidrikmastertest.databinding.ItemRvCameraBinding
 import com.example.androidrikmastertest.databinding.ItemRvDoorBinding
-import com.example.androidrikmastertest.dto.CamerasDto
 import com.example.androidrikmastertest.dto.DoorsDto
 import com.example.androidrikmastertest.utils.visibleIf
 

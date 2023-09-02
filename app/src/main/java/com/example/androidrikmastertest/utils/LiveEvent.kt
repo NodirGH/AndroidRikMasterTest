@@ -23,10 +23,6 @@ class LiveEvent<T> : MediatorLiveData<T>() {
         super.setValue(t)
     }
 
-    public fun call() {
-        postValue(null)
-    }
-
     private class ObserverWrapper<T>(val observer: Observer<T>) : Observer<T> {
 
         private var pending = false

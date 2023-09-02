@@ -11,9 +11,6 @@ import com.example.androidrikmastertest.utils.visibleIf
 
 class CameraAdapter : RecyclerView.Adapter<CameraAdapter.CameraViewHolder>() {
 
-    var isCameraFragment = true
-    var isDoorFragment = false
-
     private lateinit var listener: CameraActionListener
 
     fun setOnActionListener(listener: CameraActionListener) {
