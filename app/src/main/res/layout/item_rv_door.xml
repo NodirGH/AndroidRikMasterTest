@@ -3,27 +3,42 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginBottom="12dp"
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/mainLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bg_recycler_view"
         android:clipToOutline="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/ivDoorCatalog"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="207dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/temp" />
+            android:background="@drawable/bg_recycler_view"
+            app:cardCornerRadius="12dp">
+
+            <ImageView
+                android:id="@+id/ivDoorCatalog"
+                android:layout_width="match_parent"
+                android:layout_height="207dp"
+                android:background="@drawable/bg_recycler_view"
+                android:scaleType="centerCrop"
+                android:src="@drawable/temp" />
+        </androidx.cardview.widget.CardView>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="16dp">
+            android:padding="8dp">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -33,21 +48,25 @@
 
                 <TextView
                     android:id="@+id/tvDoorName"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Domophone"
+                    android:layout_width="wrap_content"
+                    android:paddingHorizontal="8dp"
+                    android:fontFamily="@font/circe_semi_bold"
                     android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    tools:text="Camera 1" />
 
                 <TextView
-                    android:id="@+id/tvOnlineOrNot"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tvOnline"
                     android:layout_height="wrap_content"
-                    android:text="online"
+                    android:layout_width="wrap_content"
+                    android:paddingHorizontal="8dp"
+                    android:fontFamily="@font/circe_regular"
                     android:textColor="@color/black"
-                    android:textSize="18sp" />
-
+                    android:textSize="14sp"
+                    android:text="@string/Online" />
             </LinearLayout>
+
 
             <ImageView
                 android:id="@+id/ivLockedOrNot"
@@ -64,13 +83,34 @@
     </LinearLayout>
 
     <ImageView
+        android:id="@+id/ivEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/ic_edit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/mainLinearLayout"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivAddFavorite"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:src="@drawable/ic_star_rounded"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivEdit"
+        app:layout_constraintStart_toEndOf="@+id/ivEdit"
+        app:layout_constraintTop_toTopOf="@+id/ivEdit" />
+
+    <ImageView
         android:id="@+id/ivFavorite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:src="@drawable/ic_star"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

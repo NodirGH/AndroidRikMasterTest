@@ -9,7 +9,7 @@ import com.example.androidrikmastertest.databinding.ItemRvCameraBinding
 import com.example.androidrikmastertest.dto.CamerasDto
 import com.example.androidrikmastertest.utils.visibleIf
 
-class MainAdapter : RecyclerView.Adapter<MainAdapter.CameraViewHolder>() {
+class CameraAdapter : RecyclerView.Adapter<CameraAdapter.CameraViewHolder>() {
 
     var isCameraFragment = true
     var isDoorFragment = false

@@ -6,4 +6,5 @@
     <string name="MyHome">Мой дом</string>
     <string name="UnexpectedError">Unexpected error</string>
     <string name="NoData">Информация \n не найдена</string>
+    <string name="Online">В сети</string>
 </resources>
